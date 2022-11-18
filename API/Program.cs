@@ -15,30 +15,24 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var applicationString = builder.Configuration.GetConnectionString("database") ?? throw new InvalidOperationException("'database' not found.");
-            // You just gotta pass it in like this otherwise GraphQL freaks out </3
-            builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(applicationString); }, ServiceLifetime.Singleton);
+            var applicationString = builder.Configuration.GetConnectionString("database") ?? throw new InvalidOperationException("Connection string 'database' not found.");
 
-            builder.Services.AddSingleton<IRepository, Repository>();
-            builder.Services.AddSingleton<RestaurantType>();
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(applicationString));
+            builder.Services.AddScoped<ISchema, Schema.Schema>();
+            builder.Services.AddScoped<IRepository, Repository>();
 
             builder.Services.AddGraphQL(builder => builder
             .AddErrorInfoProvider(options => options.ExposeExceptionDetails = true)
             .AddSystemTextJson()
-            .AddSchema<Schema.Schema>()
             .AddGraphTypes()
             .AddDataLoader()
-            .AddExecutionStrategy<SerialExecutionStrategy>(OperationType.Query));
+            .AddExecutionStrategy<ParallelExecutionStrategy>(OperationType.Query));
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseWebSockets();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL("graphql");
