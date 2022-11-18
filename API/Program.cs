@@ -15,9 +15,7 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var applicationString = builder.Configuration.GetConnectionString("database") ?? throw new InvalidOperationException("'database' not found.");
-
-            builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer("database"); }, ServiceLifetime.Singleton);
+            builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MGEFNET;Trusted_Connection=True;MultipleActiveResultSets=true"); }, ServiceLifetime.Singleton);
 
 
             builder.Services.AddSingleton<IRepository, Repository>();
@@ -31,19 +29,11 @@ namespace API
             .AddDataLoader()
             .AddExecutionStrategy<SerialExecutionStrategy>(OperationType.Query));
 
-
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
-
-
-
-            //app.MapGet("", (HttpContext httpContext) =>
-            //{
-            //});
 
             app.UseRouting();
             app.UseWebSockets();
