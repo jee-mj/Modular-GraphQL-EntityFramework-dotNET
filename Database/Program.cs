@@ -16,7 +16,7 @@ namespace Database
 
             var connectionString = builder.Configuration.GetConnectionString("database") ?? throw new InvalidOperationException("'database' not found");
 
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer("database"));
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             builder.Build().Run();
         }

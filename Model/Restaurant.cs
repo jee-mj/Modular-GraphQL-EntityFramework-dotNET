@@ -33,6 +33,7 @@ namespace Model
         [StringLength(32, MinimumLength = 2)]
         public string? Suburb { get; set; }
         public string? Postcode { get; set; }
+        public virtual Guid? OwnerId { get; set; }
         public virtual Owner? Owner { get; set; }
     }
 }
