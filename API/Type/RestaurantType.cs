@@ -1,3 +1,7 @@
+using API.Data;
+using API.Repositories;
+using GraphQL;
+using GraphQL.MicrosoftDI;
 using GraphQL.Types;
 using Model;
 
@@ -7,12 +11,13 @@ namespace API.Type
     {
         public RestaurantType()
         {
-            Field(r => r.Id);
-            Field(r => r.Name);
-            Field(r => r.Line1);
-            Field(r => r.Line2);
-            Field(r => r.Suburb);
-            Field(r => r.Postcode);
+            Field<NonNullGraphType<GuidGraphType>>("id");
+            Field<StringGraphType>("name");
+            Field<StringGraphType>("line1");
+            Field<StringGraphType>("line2");
+            Field<StringGraphType>("suburb");
+            Field<StringGraphType>("postcode");
+            Field<OwnerType, Owner>("owner");
         }
     }
 }
