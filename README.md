@@ -6,7 +6,7 @@ Mutations & Subscriptions remain; TBA.
 
 ## Environment
 
-```cs
+```xaml
 <PropertyGroup>
   <TargetFramework>net7.0</TargetFramework>
   <Nullable>enable</Nullable>
