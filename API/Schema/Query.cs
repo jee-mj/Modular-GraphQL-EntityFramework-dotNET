@@ -12,10 +12,10 @@ namespace API.Schema
         public Query(IRepository repository, IDataLoaderContextAccessor accessor)
         {
             var loader = accessor.Context;
-            Name = "ApiQuery";
+            Name = "Query";
 
             Field<RestaurantType>("restaurant")
-                .Argument<NonNullGraphType<StringGraphType>>("id", "the restaurant identifier")
+                .Argument<NonNullGraphType<GuidGraphType>>("id", "the restaurant identifier")
                 .ResolveAsync(async context => await repository.GetRestaurantById(context.GetArgument<Guid>("id")).ConfigureAwait(false));
                 
             Field<ListGraphType<RestaurantType>>("restaurants")
