@@ -12,7 +12,7 @@ namespace API.Schema
         public Query(IRepository repository, IDataLoaderContextAccessor accessor)
         {
             var loader = accessor.Context;
-            Name = "ApiQuery";
+            Name = "Query";
 
             Field<RestaurantType>("restaurant")
                 .Argument<NonNullGraphType<StringGraphType>>("id", "the restaurant identifier")
