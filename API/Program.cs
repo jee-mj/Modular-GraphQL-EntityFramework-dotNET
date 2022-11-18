@@ -15,8 +15,8 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // You just gotta pass it in like this otherwise GraphQL freaks out </3
             builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MGEFNET;Trusted_Connection=True;MultipleActiveResultSets=true"); }, ServiceLifetime.Singleton);
-
 
             builder.Services.AddSingleton<IRepository, Repository>();
             builder.Services.AddSingleton<RestaurantType>();
