@@ -1,5 +1,7 @@
 # Modular-GraphQL-EntityFramework-dotNET
 
+Disclaimer: If you found that this project has helped you, please consider donating to the GraphQL Foundation, .NET Foundation, else if you are unable to do so -- just play it forward! Find something that you can you can similarly help new users to get comfortable with. - jee-mj
+
 Implementation of Queries is complete!
 
 Mutations & Subscriptions remain; TBA.
